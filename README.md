@@ -37,13 +37,27 @@ restar(7, 3); // 4
 ## Pruebas
 
 Las pruebas se encuentran en [`test/index.test.js`](test/index.test.js) y
-utilizan el módulo de pruebas integrado de Node.js:
+utilizan Jest:
 
 ```bash
 npm test
 ```
 
 Las pruebas cubren valores positivos, cero y números negativos.
+
+## Ejecución con Docker
+
+Construye la imagen desde la raíz del proyecto:
+
+```bash
+docker build -t devops-ceste .
+```
+
+Ejecuta el contenedor para instalar las dependencias y lanzar las pruebas:
+
+```bash
+docker run --rm devops-ceste
+```
 
 ## Especificación guiada por diseño (SDD)
 

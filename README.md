@@ -70,3 +70,6 @@ La especificación inicial del front se encuentra en [`docs/sdd/`](docs/sdd/):
 
 Estos documentos deben revisarse y aprobarse antes de implementar la primera
 versión del front.
+
+Las credenciales de Docker Hub se almacenan como variables de Jenkins y no
+deben añadirse al repositorio ni al README.

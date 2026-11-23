@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS20'
+        nodejs 'Node'
     }
 
     parameters {
@@ -26,13 +26,6 @@ pipeline {
         }
 
         stage('Pruebas') {
-            agent {
-                docker {
-                    image 'node:20-alpine'
-                    reuseNode true
-                }
-            }
-
             steps {
                 sh 'npm ci'
                 sh 'npm test -- --runInBand'

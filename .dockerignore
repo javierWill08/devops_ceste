@@ -3,3 +3,6 @@ test/
 .github/
 node_modules/
 .git
+infra/
+coverage/
+test-results/

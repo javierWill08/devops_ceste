@@ -15,7 +15,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'xaviwill2020/calculadora'
-        DOCKER_CREDENTIALS = 'de265502-f2e7-41c6-b0fc-e903446a6282'
+        DOCKER_CREDENTIALS = '28f89f64-92ef-4c02-a66b-9ba85100cd0b'
     }
 
     stages {

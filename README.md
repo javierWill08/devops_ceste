@@ -55,6 +55,12 @@ informe JUnit en `reports/junit.xml`. Ambos directorios son artefactos locales
 ignorados por Git. Las pruebas cubren las operaciones y las rutas HTTP de la
 aplicación.
 
+En GitHub Actions, el job de pruebas publica el resultado JUnit en el resumen
+de la ejecución y guarda `reports/junit.xml` junto con `coverage/lcov-report/`
+en el artefacto `test-and-coverage-reports`, incluso si las pruebas fallan. El
+artefacto se descarga desde la sección **Artifacts** de la ejecución del
+workflow.
+
 ## Ejecución con Docker
 
 Construye la imagen desde la raíz del proyecto:

@@ -32,4 +32,14 @@ describe('servidor HTTP de la calculadora', () => {
 
     await expect(response.json()).resolves.toEqual({ resultado: 4 });
   });
+
+  test('la raíz devuelve el mensaje de la calculadora en JSON', async () => {
+    const response = await fetch(baseUrl);
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('application/json');
+    await expect(response.json()).resolves.toEqual({
+      mensaje: 'Calculadora CESA7003',
+    });
+  });
 });

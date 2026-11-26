@@ -62,6 +62,8 @@ pipeline {
 
     post {
         always {
+            junit testResults: 'reports/junit.xml', allowEmptyResults: true
+            archiveArtifacts artifacts: 'coverage/lcov-report/**', allowEmptyArchive: true
             sh 'docker logout'
         }
     }

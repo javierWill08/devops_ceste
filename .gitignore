@@ -221,6 +221,7 @@ __marimo__/
 
 #dependency
 node_modules/
+coverage/
 
 # Terraform local state and generated files
 .terraform/

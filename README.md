@@ -37,13 +37,20 @@ restar(7, 3); // 4
 ## Pruebas
 
 Las pruebas se encuentran en [`test/index.test.js`](test/index.test.js) y
-utilizan Jest:
+[`test/server.test.js`](test/server.test.js) y utilizan Jest:
 
 ```bash
 npm test
 ```
 
-Las pruebas cubren valores positivos, cero y números negativos.
+Para ejecutar las pruebas y generar el resumen de cobertura en la terminal:
+
+```bash
+npm run test:coverage
+```
+
+Jest también genera el informe HTML en `coverage/lcov-report/index.html`.
+Las pruebas cubren las operaciones y las rutas HTTP de la aplicación.
 
 ## Ejecución con Docker
 

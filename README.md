@@ -50,7 +50,16 @@ npm run test:coverage
 ```
 
 Jest también genera el informe HTML en `coverage/lcov-report/index.html`.
-Las pruebas cubren las operaciones y las rutas HTTP de la aplicación.
+La cobertura de líneas debe ser como mínimo del 80 %. Se genera además el
+informe JUnit en `reports/junit.xml`. Ambos directorios son artefactos locales
+ignorados por Git. Las pruebas cubren las operaciones y las rutas HTTP de la
+aplicación.
+
+En GitHub Actions, el job de pruebas publica el resultado JUnit en el resumen
+de la ejecución y guarda `reports/junit.xml` junto con `coverage/lcov-report/`
+en el artefacto `test-and-coverage-reports`, incluso si las pruebas fallan. El
+artefacto se descarga desde la sección **Artifacts** de la ejecución del
+workflow.
 
 ## Ejecución con Docker
 

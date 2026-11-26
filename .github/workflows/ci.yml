@@ -21,6 +21,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
 
     steps:
       - name: Checkout
@@ -36,7 +39,29 @@ jobs:
         run: npm ci
 
       - name: Run tests
+        id: tests
         run: npm test
+
+      - name: Publish Jest test results
+        if: >-
+          always() &&
+          (steps.tests.outcome == 'success' || steps.tests.outcome == 'failure') &&
+          (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false)
+        uses: dorny/test-reporter@v2
+        with:
+          name: Jest test results
+          path: reports/junit.xml
+          reporter: jest-junit
+
+      - name: Upload test and coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-and-coverage-reports
+          path: |
+            reports/junit.xml
+            coverage/lcov-report/
+          if-no-files-found: warn
 
   docker:
     runs-on: ubuntu-latest

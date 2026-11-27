@@ -231,3 +231,6 @@ reports/
 *.tfplan
 crash.log
 jspm_packages/
+
+#informativos
+doc.txt

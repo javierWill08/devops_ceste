@@ -34,7 +34,7 @@ pipeline {
 
         stage('Construir imagen') {
             steps {
-                sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .'
+                sh 'docker build --pull -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .'
                 sh 'docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${DOCKER_IMAGE}:latest'
             }
         }

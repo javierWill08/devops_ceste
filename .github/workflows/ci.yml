@@ -34,7 +34,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
@@ -84,7 +84,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t xaviwill2020/calculadora:${{ github.run_number }} .
+          docker build --pull -t xaviwill2020/calculadora:${{ github.run_number }} .
           docker tag xaviwill2020/calculadora:${{ github.run_number }} xaviwill2020/calculadora:latest
 
       - name: Scan image for critical vulnerabilities

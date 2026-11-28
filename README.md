@@ -55,6 +55,15 @@ informe JUnit en `reports/junit.xml`. Ambos directorios son artefactos locales
 ignorados por Git. Las pruebas cubren las operaciones y las rutas HTTP de la
 aplicación.
 
+La configuración de análisis de Sonar está en
+[`sonar-project.properties`](sonar-project.properties). Ejecuta primero
+`npm run test:coverage` para generar `coverage/lcov.info`, y luego SonarScanner
+con el token del proyecto configurado en tu entorno. En GitHub Actions el
+análisis se ejecuta contra SonarCloud después de las pruebas; configura
+`SONAR_TOKEN` en **Settings > Secrets and variables > Actions**. El workflow
+usa `fetch-depth: 0` para entregar el historial completo al análisis. No
+guardes el token en el repositorio.
+
 En GitHub Actions, el job de pruebas publica el resultado JUnit en el resumen
 de la ejecución y guarda `reports/junit.xml` junto con `coverage/lcov-report/`
 en el artefacto `test-and-coverage-reports`, incluso si las pruebas fallan. El

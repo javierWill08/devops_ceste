@@ -28,11 +28,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
@@ -41,6 +43,15 @@ jobs:
       - name: Run tests
         id: tests
         run: npm test
+
+      - name: Analyze with SonarCloud
+        if: >-
+          github.event_name != 'pull_request' ||
+          github.event.pull_request.head.repo.fork == false
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
 
       - name: Publish Jest test results
         if: >-
@@ -73,8 +84,19 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t xaviwill2020/calculadora:${{ github.run_number }} .
+          docker build --pull -t xaviwill2020/calculadora:${{ github.run_number }} .
           docker tag xaviwill2020/calculadora:${{ github.run_number }} xaviwill2020/calculadora:latest
+
+      - name: Scan image for critical vulnerabilities
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v trivy-cache:/root/.cache/ \
+            aquasec/trivy:0.76.2 image \
+            --severity CRITICAL \
+            --exit-code 1 \
+            --ignore-unfixed \
+            xaviwill2020/calculadora:${{ github.run_number }}
 
       - name: Login to Docker Hub
         if: github.event_name == 'push' || inputs.publicar_imagen
